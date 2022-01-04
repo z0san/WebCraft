@@ -1,0 +1,6 @@
+#!/bin/bash
+
+rm -r CMakeFiles
+rm MakeFile
+rm cmake_install.cmake
+rm CMakeCache.txt

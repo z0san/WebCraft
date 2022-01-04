@@ -1,0 +1,7 @@
+prefix=/mnt/c/Users/injap/Downloads/emsdk/upstream/emscripten/cache/sysroot
+includedir=${prefix}/include
+
+Name: GLM
+Description: OpenGL Mathematics
+Version: 0.9.8
+Cflags: -I${includedir}

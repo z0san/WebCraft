@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  </head>
+
+  <body>
+    <div style="text-align: center;">
+      <!-- Create the canvas that the C++ code will draw into -->
+      <canvas
+        id="canvas"
+        allow="cross-origin-isolated"
+        oncontextmenu="event.preventDefault()"
+      ></canvas>
+    </div>
+
+    <!-- Allow the C++ to access the canvas element -->
+    <script type="text/javascript">
+      var canv = document.getElementById("canvas");
+      var Module = {
+        canvas: canv,
+      };
+    </script>
+
+    <script src="WebCraft.js"></script>
+
+    <script type="text/javascript">
+      var canvas = document.querySelector("canvas");
+      canvas.requestPointerLock =
+        canvas.requestPointerLock || canvas.mozRequestPointerLock;
+      canvas.onclick = function () {
+        canvas.requestPointerLock();
+      };
+
+      // Hook pointer lock state change events for different browsers
+      document.addEventListener("pointerlockchange", lockChangeAlert, false);
+      document.addEventListener("mozpointerlockchange", lockChangeAlert, false);
+
+      function lockChangeAlert() {
+        if (
+          document.pointerLockElement === canvas ||
+          document.mozPointerLockElement === canvas
+        ) {
+          console.log("The pointer lock status is now locked");
+          document.addEventListener("mousemove", updatePosition, false);
+        } else {
+          console.log("The pointer lock status is now unlocked");
+          document.removeEventListener("mousemove", updatePosition, false);
+        }
+      }
+
+      var x = 50;
+      var y = 50;
+
+      function updatePosition(e) {
+        x = e.movementX;
+        y = e.movementY;
+        _handle_mouse_move(x, y);
+      }
+    </script>
+  </body>
+</html>
